@@ -6,6 +6,7 @@ import org.apache.zookeeper.Watcher;
 public class SimpleWatcher implements Watcher {
 
     public void process(WatchedEvent watchedEvent) {
+        System.out.println("======watcher被触发");
         switch (watchedEvent.getType()) {
             case None:
                 System.out.println("======None");
