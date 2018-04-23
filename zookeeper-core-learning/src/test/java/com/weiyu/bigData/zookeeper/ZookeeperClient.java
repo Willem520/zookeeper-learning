@@ -36,7 +36,7 @@ public class ZookeeperClient {
         if (zooKeeper == null)
             start();
 
-        //创建临时节点(回话结束后即小时)
+        //创建临时节点(会话结束后即删除)
         String path1 = zooKeeper.create("/weiyu_ephemeral", "hello,ephemeral node".getBytes("UTF-8"), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
         System.out.println("success create znode: " + path1);
 
@@ -53,10 +53,50 @@ public class ZookeeperClient {
         }));
     }
 
+    @Test
+    public void testDeleteNode() throws IOException, KeeperException, InterruptedException {
+        if (zooKeeper == null)
+            start();
+
+        String nodePath = "/weiyu_persistent";
+        if (zooKeeper.exists(nodePath,true) != null){
+            System.out.println("======节点存在，可删除");
+            zooKeeper.delete(nodePath,-1);
+        }
+
+        Runtime.getRuntime().addShutdownHook(new Thread(()-> {
+            try {
+                stop();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }));
+    }
+
+    @Test
+    public void testModifyNode() throws IOException, KeeperException, InterruptedException {
+        if (zooKeeper == null)
+            start();
+
+        String nodePath = "/weiyu_persistent-0000000049";
+        if (zooKeeper.exists(nodePath,true) != null){
+            zooKeeper.setData(nodePath,"hello,update value".getBytes("utf-8"),-1);
+            System.out.println("======更新节点内容");
+        }
+
+        Runtime.getRuntime().addShutdownHook(new Thread(()-> {
+            try {
+                stop();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }));
+    }
+
     private void start() throws IOException {
         if (zooKeeper == null) {
             synchronized (ZookeeperClient.class) {
-                zooKeeper = new ZooKeeper("10.143.90.232:2181,10.143.90.233:2818,10.143.90.234:2181", 5000, new SimpleWatcher());
+                zooKeeper = new ZooKeeper("10.143.90.232:2181,10.143.90.233:2181,10.143.90.234:2181", 5000, new SimpleWatcher());
             }
         } else {
             System.out.println("======zooKeeper已启动");
