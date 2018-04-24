@@ -17,6 +17,7 @@
 
     <modules>
         <module>zookeeper-core-learning</module>
+        <module>curator-core-learning</module>
     </modules>
 
     <dependencies>

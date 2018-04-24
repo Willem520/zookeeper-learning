@@ -23,3 +23,5 @@ hs_err_pid*
 /.idea/
 /zookeeper-core-learning/zookeeper-core-learning.iml
 /zookeeper-core-learning/target/
+/curator-core-learning/curator-core-learning.iml
+/curator-core-learning/target/
