@@ -28,6 +28,16 @@ public class CuratorClientTest {
     }
 
     @Test
+    public void testSetNode() throws Exception {
+        String node = ROOT_PATH + "/persistent-node";
+        if (curator.checkExists().forPath(node) != null){
+            String value = "test-value";
+            curator.setData().forPath(node, value.getBytes("UTF-8"));
+            log.info("node:[{}] value set as:{}", node, value);
+        }
+    }
+
+    @Test
     public void testGetNode() throws Exception {
         String node = ROOT_PATH + "/persistent-node";
         if (curator.checkExists().forPath(node) != null){
@@ -40,7 +50,8 @@ public class CuratorClientTest {
     public void testDeleteNode() throws Exception {
         String node = ROOT_PATH + "/persistent-node";
         if (curator.checkExists().forPath(node) != null){
-            curator.delete().forPath(node);
+            //guaranteed()用于强制保证删除一个节点
+            curator.delete().guaranteed().forPath(node);
             log.info("create node:[{}]", node);
         }else{
             log.warn("node:[{}] is not existed", node);
