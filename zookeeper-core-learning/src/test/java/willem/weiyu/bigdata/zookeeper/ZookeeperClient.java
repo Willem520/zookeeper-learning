@@ -1,6 +1,6 @@
-package com.weiyu.bigData.zookeeper;
+package willem.weiyu.bigdata.zookeeper;
 
-import com.weiyu.bigData.zookeeper.watcher.SimpleWatcher;
+import willem.weiyu.bigdata.zookeeper.watcher.SimpleWatcher;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooDefs;

@@ -4,12 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>zookeeper-learning</artifactId>
-        <groupId>com.weiyu.bigData</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <groupId>willem.weiyu.bigData</groupId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.weiyu.bigData</groupId>
+    <groupId>willem.weiyu.bigData</groupId>
     <artifactId>zookeeper-core-learning</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.4.12</version>
+        </dependency>
+    </dependencies>
 </project>

@@ -1,4 +1,4 @@
-package com.weiyu.bigData.zookeeper.watcher;
+package willem.weiyu.bigdata.zookeeper.watcher;
 
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;

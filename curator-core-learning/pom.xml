@@ -4,19 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>zookeeper-learning</artifactId>
-        <groupId>com.weiyu.bigData</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <groupId>willem.weiyu.bigData</groupId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.weiyu.bigData</groupId>
+    <groupId>willem.weiyu.bigData</groupId>
     <artifactId>curator-core-learning</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.curator</groupId>
-            <artifactId>curator-framework</artifactId>
-            <version>4.0.1</version>
+            <artifactId>curator-recipes</artifactId>
+            <version>2.13.0</version>
         </dependency>
     </dependencies>
 </project>
