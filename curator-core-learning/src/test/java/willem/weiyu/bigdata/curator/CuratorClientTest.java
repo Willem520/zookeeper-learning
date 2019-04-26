@@ -1,6 +1,8 @@
 package willem.weiyu.bigdata.curator;
 
 import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.api.ChildrenDeletable;
+import org.apache.curator.framework.api.Guaranteeable;
 import org.apache.zookeeper.CreateMode;
 import org.junit.Test;
 
@@ -56,13 +58,18 @@ public class CuratorClientTest {
         client.close();
     }
 
+    /**
+     * 强制保证删除{@link Guaranteeable#guaranteed()}
+     * 递归删除{@link ChildrenDeletable#deletingChildrenIfNeeded()}
+     * @throws Exception
+     */
     @Test
     public void testDeleteNode() throws Exception {
         CuratorFramework curator = client.getClient();
         String node = ROOT_PATH + "/persistent-node";
         if (curator.checkExists().forPath(node) != null){
             //guaranteed()用于强制保证删除一个节点
-            curator.delete().guaranteed().forPath(node);
+            curator.delete().guaranteed().deletingChildrenIfNeeded().forPath(node);
             log.info("create node:[{}]", node);
         }else{
             log.warn("node:[{}] is not existed", node);
