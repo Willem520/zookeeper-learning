@@ -21,17 +21,21 @@ public class CuratorClientTest {
     @Test
     public void testCreateNode() throws Exception {
         CuratorFramework curator = client.getClient();
-        if (curator.checkExists().forPath(ROOT_PATH) != null) {
-            String perNode = ROOT_PATH + "/persistent-node";
+        String perNode = ROOT_PATH + "/persistent-node";
+        String ephNode = ROOT_PATH + "/ephemeral-node";
+
+        if (curator.checkExists().forPath(perNode) == null) {
             //创建节点，默认为永久
             curator.create().creatingParentsIfNeeded().forPath(perNode, "willem".getBytes("UTF-8"));
             log.info("create persistent node:[{}]", perNode);
+        }
 
-            String ephNode = ROOT_PATH + "/ephemeral-node";
+        if (curator.checkExists().forPath(ephNode) == null){
             //创建临时节点
             curator.create().withMode(CreateMode.EPHEMERAL).forPath(ephNode);
             log.info("create ephemeral node:[{}]", ephNode);
         }
+
         client.close();
     }
 
