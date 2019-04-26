@@ -12,21 +12,31 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
  */
 public class CuratorClient {
     private CuratorFramework client;
-    private String zkAddress = "10.26.27.81:2181";
+    private String zkAddress;
+    private String rootPath;
 
-    public CuratorClient(){
-        RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,10);
+    public CuratorClient() {
+        this("10.26.27.81:2181","curator");
+    }
+
+    public CuratorClient(String zkAddress,String nameSpace) {
+        this.zkAddress = zkAddress;
+        this.rootPath = nameSpace;
+        RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 10);
+        //namespace添加隔离空间，即指定一个zookeeper的根路径
         client =
-                CuratorFrameworkFactory.builder().connectString(zkAddress).sessionTimeoutMs(5000).retryPolicy(retryPolicy).build();
+                CuratorFrameworkFactory.builder().connectString(this.zkAddress).sessionTimeoutMs(5000)
+                        .namespace(this.rootPath).retryPolicy(retryPolicy).build();
         client.start();
     }
 
-    public CuratorClient(String zkAddress){
-        this.zkAddress = zkAddress;
-        new CuratorClient();
+    public CuratorFramework getClient() {
+        return client;
     }
 
-    public CuratorFramework getClient(){
-        return client;
+    public void close() {
+        if (client != null) {
+            client.close();
+        }
     }
 }
